@@ -7,11 +7,12 @@ fn main() {
 
     // Load the QML path into the engine
     if let Some(engine) = engine.as_mut() {
-        engine.load(&QUrl::from("qrc:/main.qml"));
+        engine.load(&QUrl::from("qrc:../qml/main.qml"));
     }
 
     // Start the app
     if let Some(app) = app.as_mut() {
         app.exec();
     }
+
 }
