@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install Qt Dependencies
-        run: sudo apt-get install qtbase5-dev libqt5widgets5 qtdeclarative5-dev qt5-qmake libqt5core5a libqt5gui5 libqt5qml5
+        run: sudo apt-get install qtbase5-dev libqt5widgets5
       - name: Install Rust
         uses: actions-rs/toolchain@v1
         with:
