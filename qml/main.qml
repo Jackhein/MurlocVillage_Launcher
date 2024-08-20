@@ -4,7 +4,7 @@ import QtQuick.Window 2.12
 
 // This must match the qml_uri and qml_version
 // specified with the #[cxx_qt::qobject] macro in Rust.
-import demo 1.0
+import MurlocVillage_Launcher 1.0
 
 Window {
     title: qsTr("Hello App")
@@ -13,8 +13,10 @@ Window {
     width: 640
     color: "#e4af79"
 
-    Hello {
-        id: hello
+    FileIntegrity  {
+        id: fileintegrity
+        file: ""
+        result: ""
     }
 
     Column {
@@ -24,8 +26,26 @@ Window {
         spacing: 10
 
         Button {
-            text: "Say Hello!"
-            onClicked: hello.sayHello()
+            text: "Verify"
+            onClicked: fileintegrity.result = fileintegrity.fileExist(fileintegrity.file)
+        }
+
+        TextArea {
+            placeholderText: qsTr("file to check")
+            text: fileintegrity.file
+            onTextChanged: fileintegrity.file = text
+
+            background: Rectangle {
+                implicitWidth: 400
+                implicitHeight: 50
+                radius: 3
+                color:  "#e2e8f0"
+                border.color:  "#21be2b"
+            }
+        }
+
+        Label {
+            text: fileintegrity.result
         }
     }
 }
