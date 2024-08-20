@@ -25,14 +25,26 @@ mod my_object {
 
     impl qobject::FileIntegrity {
         #[qinvokable]
-        pub fn file_exist(&self, file: &QString) -> QString {
+        pub fn check_file(&self, file: &QString) -> QString {
             use std::path::Path;
             use std::env;
+            use sha2::{Sha512, Digest};
+            use std::{io, fs};
 
             let current_file = &format!("{}/{}", env::current_dir().unwrap().display(), file);
 
-            let result = format!("{current_file:?} {}exist", if Path::new(current_file).exists()  { "" } else { "doesn't" });
-            QString::from(&result)
+            if !Path::new(current_file).exists() {
+                return QString::from(&format!("File {} doesn't exist.", current_file))
+            }
+
+            let mut hasher = Sha512::new();
+            let mut file = match fs::File::open(current_file) {
+                Ok(f) => f,
+                Err(_e) => return QString::from(&format!("File {} couldn't be opened.", current_file)),
+            };
+
+            let _ = io::copy(&mut file, &mut hasher);
+            QString::from(&(hex::encode(hasher.finalize())))
         }
     }
 }

@@ -27,7 +27,7 @@ Window {
 
         Button {
             text: "Verify"
-            onClicked: fileintegrity.result = fileintegrity.fileExist(fileintegrity.file)
+            onClicked: fileintegrity.result = fileintegrity.checkFile(fileintegrity.file)
         }
 
         TextArea {
