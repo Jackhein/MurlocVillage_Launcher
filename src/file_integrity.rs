@@ -48,8 +48,8 @@ mod qobject {
                 };
                 let json: Value = serde_json::from_str(&data).expect("Invalid JSON");
                 if let Some(file_hashes) = json.get("core_files").and_then(|v| v.as_object()) {
-                    for (file, values) in file_hashes {
-                        return if let Some(array) = values.as_array() {
+                    return for (file, values) in file_hashes {
+                        if let Some(array) = values.as_array() {
                             if array.len() == 2 {
                                 let correct_hash = array[0].as_str().unwrap_or("");
                                 let url = array[1].as_str().unwrap_or("");
@@ -91,9 +91,7 @@ mod qobject {
                         } else {
                             qobject::FileIntegrity::display_message(&qt_thread, &format!("File {} data in JSON are corrupted (not an array)", file));
                         }
-                    }
-                    qobject::FileIntegrity::display_message(&qt_thread, "Game is ready");
-                    return
+                    };
                 }
                 qobject::FileIntegrity::display_message(&qt_thread, "JSON isn't valid");
             });
