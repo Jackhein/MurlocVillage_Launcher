@@ -1,6 +1,6 @@
 {
   "core_files": {
-    "src/main.rs": ["b4fae375c2ac140be1914e2425abf878c8fc38b8b3fd272896502538f42488bc00e05dabed62e0a3ef0920ddf94fe9e17f6e6db3fc147908088813f573e8fc46", "url"]
+    "MV-Launcher.zip": ["b4fae375c2ac140be1914e2425abf878c8fc38b8b3fd272896502538f42488bc00e05dabed62e0a3ef0920ddf94fe9e17f6e6db3fc147908088813f573e8fc46", "https://wotlk.murlocvillage.com/dl/MV-Launcher.zip"]
   },
   "add_on": {
     "add_on1": [0, "url"],

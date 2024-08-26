@@ -1,4 +1,4 @@
-mod cxxqt_object;
+mod file_integrity;
 
 use cxx_qt_lib::{QGuiApplication, QQmlApplicationEngine, QUrl};
 
@@ -10,10 +10,14 @@ fn main() {
     // Load the QML path into the engine
     if let Some(engine) = engine.as_mut() {
         engine.load(&QUrl::from("qrc:/main.qml"));
+    } else {
+        eprintln!("Failed to load QQmlApplicationEngine.");
     }
 
     // Start the app
     if let Some(app) = app.as_mut() {
         app.exec();
+    } else {
+        eprintln!("Failed to execute QGuiApplication.");
     }
 }
