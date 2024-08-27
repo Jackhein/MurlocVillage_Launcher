@@ -82,7 +82,7 @@ mod qobject {
                                         qobject::FileIntegrity::display_message(&qt_thread, &format!("Unable to download {} from {}.", file, url));
                                         return
                                     }
-                                    qobject::FileIntegrity::display_message(&qt_thread, &format!("File {} isn't correct ({}), download from {}.", file, hex::encode(&hasher.finalize()), url));
+                                    qobject::FileIntegrity::display_message(&qt_thread, &format!("File {} isn't correct ({}), download from {}.", file, hex::encode(hasher.clone().finalize()), url));
                                 }
                             } else {
                                 qobject::FileIntegrity::display_message(&qt_thread, &format!("File {} data in JSON are corrupted (wrong array size)", file));
@@ -104,7 +104,7 @@ mod qobject {
                 qobject.set_result(QString::from(queued_msg.as_str()));
             }).unwrap();
         }
-        async fn download_file(url: &str, current_file: String) -> Result<(), String> {
+        async fn download_file(url: &str, current_file: &str) -> Result<(), String> {
             let response = reqwest::get(url).await.map_err(|_| "DownloadFailure")?;
             if !response.status().is_success() {
                 //Err(reqwest::Error::new(reqwest::StatusCode::from(response.status()), "Failed to download file"));
@@ -118,13 +118,13 @@ mod qobject {
             Ok(())
         }
 
-        async fn download_file_process(url: &str, current_file: &String) -> bool {
+        async fn download_file_process(url: &str, current_file: &str) -> bool {
             let mut retry = 0;
             let max_retries = 3;
 
             while retry < max_retries {
                 retry += 1;
-                match qobject::FileIntegrity::download_file(url, current_file.clone()).await {
+                match qobject::FileIntegrity::download_file(url, &current_file).await {
                     Ok(_) => {
                         println!("File downloaded successfully!");
                         return false;
