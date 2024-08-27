@@ -1,6 +1,6 @@
 {
   "core_files": {
-    "MV-Launcher.zip": ["260d06a18d34520b55e6aed3177415df7850f661dea268eaa59ea009ada99114865b62fcd341c35c16ef23d50409dfbf9c121bc2d3bd5952dc497bca9245c0fd", "https://wotlk.murlocvillage.com/dl/MV-Launcher.zip"]
+    "MV-Launcher.zip": ["cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e", "https://wotlk.murlocvillage.com/dl/MV-Launcher.zip"]
   },
   "add_on": {
     "add_on1": [0, "url"],

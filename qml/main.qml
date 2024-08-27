@@ -7,7 +7,7 @@ import QtQuick.Window 2.12
 import MurlocVillage_Launcher 1.0
 
 Window {
-    title: qsTr("Hello App")
+    title: qsTr("MurlocVillage Launcher 1.0")
     visible: true
     height: 480
     width: 640
@@ -15,8 +15,10 @@ Window {
 
     FileIntegrity  {
         id: fileintegrity
-        file: ""
-        result: ""
+        result: fileintegrity.result
+        verify: fileintegrity.verify
+        play: fileintegrity.play
+        language: fileintegrity.language
     }
 
     Column {
@@ -26,14 +28,23 @@ Window {
         spacing: 10
 
         Button {
-            text: "Verify"
+            text: fileintegrity.verify
             onClicked: fileintegrity.checkFile()
         }
 
+        Button {
+            text: fileintegrity.play
+            onClicked: fileintegrity.result=fileintegrity.startGame()
+        }
+
+        Button {
+            text: fileintegrity.language
+        }
+
         TextArea {
-            placeholderText: qsTr("file to check")
-            text: fileintegrity.file
-            onTextChanged: fileintegrity.file = text
+            //placeholderText: qsTr("file to check")
+            text: fileintegrity.result
+            //onTextChanged: fileintegrity.result = text
 
             background: Rectangle {
                 implicitWidth: 400
@@ -42,10 +53,6 @@ Window {
                 color:  "#e2e8f0"
                 border.color:  "#21be2b"
             }
-        }
-
-        Label {
-            text: fileintegrity.result
         }
     }
 }
