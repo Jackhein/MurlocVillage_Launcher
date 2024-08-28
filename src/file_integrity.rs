@@ -13,8 +13,10 @@ mod qobject {
         type QString = cxx_qt_lib::QString;
     }
 
-    #[cxx_qt::qobject(qml_uri = "MurlocVillage_Launcher", qml_version = "1.0")]
+    #[cxx_qt::qobject(qml_uri = "WoW_Private_Server_Launcher", qml_version = "1.0")]
     pub struct FileIntegrity {
+        #[qproperty]
+        title: QString,
         #[qproperty]
         play: QString,
         #[qproperty]
@@ -28,6 +30,7 @@ mod qobject {
     impl Default for FileIntegrity {
         fn default() -> Self {
             Self {
+                title: qobject::FileIntegrity::load_gui_title(),
                 play: qobject::FileIntegrity::load_gui_button_play(),
                 verify: qobject::FileIntegrity::load_gui_button_verify(),
                 language: qobject::FileIntegrity::load_gui_button_language(),
@@ -56,7 +59,7 @@ mod qobject {
                 let json: Value = serde_json::from_str(&data).expect("Invalid JSON");
                 if let Some(file_hashes) = json.get("core_files").and_then(|v| v.as_object()) {
                     return for (i, (file, values)) in file_hashes.iter().enumerate() {
-                        qobject::FileIntegrity::display_message(&qt_thread, &format!("Current file: {} on {}", i.to_string(), file_hashes.len()));
+                        qobject::FileIntegrity::display_message(&qt_thread, &format!("Current file: {} on {}", i, file_hashes.len()));
                         if let Some(array) = values.as_array() {
                             if array.len() == 2 {
                                 let correct_hash = array[0].as_str().unwrap_or("");
@@ -156,7 +159,7 @@ mod qobject {
             let mut downloaded = 0;
             while let Some(chunk) = response.chunk().await.map_err(|_| "DownloadFailure")? {
                 downloaded += chunk.len() as u64;
-                qobject::FileIntegrity::download_message(&qt_thread, &format!("File downloading: {}%", 100 * downloaded / total_size));
+                qobject::FileIntegrity::download_message(qt_thread, &format!("File downloading: {}%", 100 * downloaded / total_size));
             }
             if !response.status().is_success() {
                 //Err(reqwest::Error::new(reqwest::StatusCode::from(response.status()), "Failed to download file"));
@@ -176,7 +179,7 @@ mod qobject {
 
             while retry < max_retries {
                 retry += 1;
-                match qobject::FileIntegrity::download_file(url, current_file, &qt_thread).await {
+                match qobject::FileIntegrity::download_file(url, current_file, qt_thread).await {
                     Ok(_) => {
                         println!("File downloaded successfully!");
                         return false;
@@ -209,6 +212,9 @@ mod qobject {
             QString::from("Language settings")
         }
 
+        fn load_gui_title() -> QString {
+            QString::from("WoW Private Server Launcher")
+        }
         // /// Download the add-on
 
     }

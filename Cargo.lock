@@ -3,7 +3,7 @@
 version = 3
 
 [[package]]
-name = "MurlocVillage_Launcher"
+name = "WoW_Private_Server_Launcher"
 version = "0.1.0"
 dependencies = [
  "cxx",

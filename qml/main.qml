@@ -4,10 +4,10 @@ import QtQuick.Window 2.12
 
 // This must match the qml_uri and qml_version
 // specified with the #[cxx_qt::qobject] macro in Rust.
-import MurlocVillage_Launcher 1.0
+import WoW_Private_Server_Launcher 1.0
 
 Window {
-    title: qsTr("MurlocVillage Launcher 1.0")
+    title: qsTr(fileintegrity.title)
     visible: true
     height: 480
     width: 640
@@ -15,6 +15,7 @@ Window {
 
     FileIntegrity  {
         id: fileintegrity
+        title: fileintegrity.title
         result: fileintegrity.result
         verify: fileintegrity.verify
         play: fileintegrity.play

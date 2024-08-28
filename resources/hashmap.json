@@ -1,4 +1,5 @@
 {
+  "title": "MurlocVillage Launcher 1.0",
   "core_files": {
     "MV-Launcher.zip": ["cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e", "https://wotlk.murlocvillage.com/dl/MV-Launcher.zip"]
   },
@@ -10,11 +11,34 @@
     "add_on2": [0, "url"]
   },
   "languages": {
-    "english": 0,
-    "french": 0
+    "english": [
+      0,
+      "enUS",
+      {
+        "button_play": "Play",
+        "button_verify": "Verify game",
+        "button_language": "Language settings",
+        "button_addon": "Add-on",
+        "text_language": "English",
+        "text_verify_": "",
+        "text_play_": ""
+      }
+    ],
+    "french": [
+      0,
+      "frFR",
+      {
+        "button_play": "Jouer",
+        "button_verify": "Installation/Réparation",
+        "button_language": "Choix de langue",
+        "text_language": "Français",
+        "button_addon": "Add-on"
+      }
+    ]
   },
   "release" : [1.0, "url"],
   "resources": {
-    "img" : "url"
+    "folder": "launcher_resources",
+    "img": "url"
   }
 }
