@@ -1,41 +1,48 @@
 # Don"t reformat anything.
 # Possible values: true, false
 # disable_all_formatting = false
-disable_all_formatting = true
 
 # Specifies which edition is used by the parser.
 # Possible values: "2015", "2018", "2021", "2024"
 # edition = "2015"
 
-# Controls the edition of the Rust Style Guide to use for formatting (RFC 3338)
+# *Controls the edition of the Rust Style Guide to use for formatting (RFC 3338).
 # Possible values: "2015", "2018", "2021", "2024"
 # style_edition = "2015"
 
-# Require a specific version of rustfmt.
+# *Require a specific version of rustfmt.
 # Possible values: any published version (e.g. "0.3.8")
 # required_version = CARGO_PKG_VERSION
 
-# Error if Rustfmt is unable to get all lines within max_width, except for comments and string literals.
+# *Error if Rustfmt is unable to get all lines within max_width, except for comments and string literals.
 # Possible values: true, false
 # error_on_line_overflow = false
 
-# Error if unable to get comments or string literals within max_width, or they are left with trailing whitespaces.
+# *Error if unable to get comments or string literals within max_width, or they are left with trailing whitespaces.
 # Possible values: true, false
 # error_on_unformatted = false
 
-# Show parse errors if the parser failed to parse files.
+# *Enable unstable features on the unstable channel.
+# Possible values: true, false
+# unstable_features = false
+
+# *Show parse errors if the parser failed to parse files.
 # Possible values: true, false
 # show_parse_errors = true
 
-# Skip formatting files and directories that match the specified pattern.
+# *Skip formatting files and directories that match the specified pattern.
 # Possible values: See https://github.com/rust-lang/rustfmt/blob/master/Configurations.md#ignore
 # ignore = []
+
+# This option can be used to simplify the management and bulk updates of the granular width configuration settings. See https://github.com/rust-lang/rustfmt/blob/master/Configurations.md#use_small_heuristics
+# Possible values: "Default", "Off", "Max"
+# use_small_heuristics = "Default"
 
 # The width threshold for an array element to be considered "short".
 # Possible values: unsigned integer <= max_width
 # short_array_element_width_threshold = 10
 
-# Maximum width of each line
+# Maximum width of each line.
 # Possible values: unsigned integer
 # max_width = 100
 max_width = 100
@@ -70,20 +77,19 @@ chain_width = 100
 # fn_call_width = 60
 fn_call_width = 100
 
-# Max width for code snippets included in doc comments. Only used if format_code_in_doc_comments is true.
+# *Max width for code snippets included in doc comments. Only used if format_code_in_doc_comments is true.
 # Possible values: unsigned integer <= max_width
 # doc_comment_code_block_width = 100
-doc_comment_code_block_width = 100
 
-# Maximum length of comments. No effect unless wrap_comments = true.
+# *Maximum length of comments. No effect unless wrap_comments = true.
 # Possible values: unsigned integer
 # comment_width = 80
 
-# The maximum length of enum variant having discriminant, that gets vertically aligned with others.
+# *The maximum length of enum variant having discriminant, that gets vertically aligned with others.
 # Possible values: unsigned integer
 # enum_discrim_align_threshold = 0
 
-# The maximum diff of width between struct fields to be aligned with each other.
+# *The maximum diff of width between struct fields to be aligned with each other.
 # Possible values: unsigned integer
 # struct_field_align_threshold = 0
 
@@ -91,41 +97,43 @@ doc_comment_code_block_width = 100
 # Possible values: unsigned integer <= max_width
 # struct_lit_width = 18
 
-# Maximum width in the body of a struct variant before falling back to vertical formatting
+# Maximum width in the body of a struct variant before falling back to vertical formatting.
 # Possible values: unsigned integer <= max_width
 # struct_variant_width = 35
 
-# How many blank lines are allowed between items.
+# *How many blank lines are allowed between items.
 # Possible values: unsigned integer
 # blank_lines_lower_bound = 0
 
-# Maximum number of blank lines which can be put between items.
+# *Maximum number of blank lines which can be put between items.
 # Possible values: unsigned integer
 # blank_lines_upper_bound = 1
 
-# Leave a space after the colon.
+# *Leave a space after the colon.
 # Possible values: true, false
 # space_after_colon = true
 
-# Leave a space before the colon.
+# *Leave a space before the colon.
 # Possible values: true, false
 # space_before_colon = false
 
-# Put spaces around the .., ..=, and ... range operators
+# *Put spaces around the .., ..=, and ... range operators.
 # Possible values: true, false
 # spaces_around_ranges = false
 
-# Where to put a binary operator when a binary expression goes multiline.
+# *Determines if + or = are wrapped in spaces in the punctuation of types.
+# Possible values: "Compressed", "Wide"
+# type_punctuation_density = "Wide"
+
+# *Where to put a binary operator when a binary expression goes multiline.
 # Possible values: "Back", "Front"
 # binop_separator = "Front"
-binop_separator = "Back"
 
-# Brace style for items.
+# *Brace style for items.
 # Possible values: "AlwaysNextLine", "PreferSameLine", "SameLineWhere"
 # brace_style = "SameLineWhere"
-brace_style = "PreferSameLine"
 
-# Brace style for control flow constructs.
+# *Brace style for control flow constructs.
 # Possible values: "AlwaysNextLine", "AlwaysSameLine", "ClosingNextLine"
 # control_brace_style = "AlwaysNextLine"
 
@@ -133,47 +141,49 @@ brace_style = "PreferSameLine"
 # Possible values: "Compressed", "Tall", "Vertical"
 # fn_params_layout = "Tall"
 
-# Indent style of imports.
+# *Indent style of imports.
 # Possible values: "Block", "Visual"
 # imports_indent = "Block"
 
-# Item layout inside a imports block.
+# *Item layout inside a imports block.
 # Possible values: "Horizontal", "HorizontalVertical", "Mixed", "Vertical"
 # imports_layout = "Mixed"
 
-# Controls how imports are structured in use statements.
+# *Controls how imports are structured in use statements.
 # Possible values: "Preserve", "Crate", "Module", "Item", "One"
 # imports_granularity = "Preserve"
 
-# Indent on expressions or items.
+# *Indent on expressions or items.
 # Possible values: "Block", "Visual"
 # indent_style = "Block"
 
-# Put single-expression functions on a single line.
+# *Put single-expression functions on a single line.
 # Possible values: true, false
 # fn_single_line = false
-fn_single_line = true
 
-# Put empty-body functions and impls on a single line.
+# *Put empty-body functions and impls on a single line.
 # Possible values: true, false
 # empty_item_single_line = true
 
-# Put small struct literals on a single line
+# *Put small struct literals on a single line.
 # Possible values: true, false
 # struct_lit_single_line = true
 
-# Write an item and its attribute on the same line if their combined width is below a threshold
+# *Forces the where clause to be laid out on a single line.
+# Possible values: true, false
+# where_single_line = false
+
+# *Write an item and its attribute on the same line if their combined width is below a threshold.
 # Possible values: unsigned integer
 # inline_attribute_width = 0
 
-# Combine control expressions with function calls.
+# *Combine control expressions with function calls.
 # Possible values: true, false
 # combine_control_expr = true
 
-# Replace strings of _ wildcards by a single .. in tuple patterns.
+# *Replace strings of _ wildcards by a single .. in tuple patterns.
 # Possible values: true, false
 # condense_wildcard_suffixes = false
-condense_wildcard_suffixes = true
 
 # Remove nested parens.
 # Possible values: true, false
@@ -183,81 +193,89 @@ condense_wildcard_suffixes = true
 # Possible values: true, false
 # merge_derives = true
 
-# Force multiline closure and match arm bodies to be wrapped in a block.
+# *Force multiline closure and match arm bodies to be wrapped in a block.
 # Possible values: true, false
 # force_multiline_blocks = false
 
-# Format string literals where necessary
+# *Format string literals where necessary.
 # Possible values: true, false
 # format_strings = false
-format_strings = true
 
 # Use tab characters for indentation, spaces for alignment.
 # Possible values: true, false
 # hard_tabs = false
 
-# Number of spaces per tab
+# Number of spaces per tab.
 # Possible values: unsigned integer
 # tab_spaces = 4
 
-# Convert /* */ comments to // comments where possible
+# Replace uses of the try! macro by the ? shorthand.
+# Possible values: true, false
+# use_try_shorthand = false
+use_try_shorthand = true
+
+# *Convert /* */ comments to // comments where possible.
 # Possible values: true, false
 # normalize_comments = false
-normalize_comments = true
 
-# Convert #![doc] and #[doc] attributes to //! and /// doc comments.
+# *Convert #![doc] and #[doc] attributes to //! and /// doc comments.
 # Possible values: true, false
 # normalize_doc_attributes = false
 
-# Format code snippet included in doc comments.
+# *Format code snippet included in doc comments.
 # Possible values: true, false
 # format_code_in_doc_comments = false
-format_code_in_doc_comments = true
 
-# Reorder impl items. type and const are put first, then macros and methods.
+# *Break comments to fit on the line.
+# Possible values: true, false
+# wrap_comments = false
+
+# *Reorder impl items. type and const are put first, then macros and methods.
 # Possible values: true, false
 # reorder_impl_items = false
-reorder_impl_items = true
 
-# Format the metavariable matching patterns in macros.
+# *Format the metavariable matching patterns in macros.
 # Possible values: true, false
 # format_macro_matchers = false
-format_macro_matchers = true
 
-# Controls whether arm bodies are wrapped in cases where the first line of the body cannot fit on the same line as the => operator.
+# *Controls whether arm bodies are wrapped in cases where the first line of the body cannot fit on the same line as the => operator.
 # Possible values: true, false
 # match_arm_blocks = true
 
-# Controls whether to include a leading pipe on match arms
+# Controls whether to include a leading pipe on match arms.
 # Possible values: "Always", "Never", "Preserve"
 # match_arm_leading_pipes = "Never"
 match_arm_leading_pipes = "Preserve"
 
-# Put a trailing comma after a block based match arm (non-block arms are not affected)
+# *Put a trailing comma after a block based match arm (non-block arms are not affected).
 # Possible values: true, false
 # match_block_trailing_comma = false
 
-# When structs, block/array-like, etc macros are used as the last argument in an expression list, allow them to overflow instead of being indented on a new line.
+# *Add trailing semicolon after break, continue and return.
+# Possible values: true, false
+# trailing_semicolon = true
+
+# *When structs, block/array-like, etc macros are used as the last argument in an expression list, allow them to overflow instead of being indented on a new line.
 # Possible values: true, false
 # overflow_delimited_expr = false
 
-# Format the bodies of declarative macro definitions.
+# *Format the bodies of declarative macro definitions.
 # Possible values: true, false
 # format_macro_bodies = true
 
-# Skip formatting the bodies of macro invocations with the following names.
+# *Skip formatting the bodies of macro invocations with the following names.
 # Possible values: a list of macro name idents, ["name_0", "name_1", ..., "*"]
 # skip_macro_invocations = []
 
-# Format generated files.
+# *Format generated files.
 # Possible values: true, false
 # format_generated_files = true
 
-# Number of lines to check for a @generated pragma header, starting from the top of the file. Apply if format_generated_files is false.
+# *Number of lines to check for a @generated pragma header, starting from the top of the file. Apply if format_generated_files is false.
 # Possible values: unsigned integer
 # generated_marker_line_search_limit = 5
 
-# Control the case of the letters in hexadecimal literal values.
+# *Control the case of the letters in hexadecimal literal values.
 # Possible values: "Preserve", "Upper", "Lower"
 # hex_literal_case = "Preserve"
 
@@ -265,7 +283,7 @@ match_arm_leading_pipes = "Preserve"
 # Possible values: true, false
 # reorder_modules = true
 
-# Don't reformat out of line modules
+# *Don't reformat out of line modules.
 # Possible values: true, false
 # skip_children = false
 
@@ -273,23 +291,22 @@ match_arm_leading_pipes = "Preserve"
 # Possible values: true, false
 # reorder_imports = true
 
-# Controls the strategy for how consecutive imports are grouped together.
+# *Controls the strategy for how consecutive imports are grouped together.
 # Possible values: "Preserve", "StdExternalCrate", "One"
 # group_imports = "Preserve"
 
-# Control how imports are grouped
+# Control how imports are grouped.
 # Possible values: "Auto", "Native", "Unix", "Windows"
 # newline_style = "Auto"
+
+# Use field initialize shorthand if possible.
+# Possible values: true, false
+# use_field_init_shorthand = false
 
 # Always print the abi for extern items.
 # Possible values: true, false
 # force_explicit_abi = true
 
-# Whether to use colored output or not.
+# *Whether to use colored output or not.
 # Possible values: "Auto", "Always", "Never"
 # color = "Auto"
-
-# Align function arguments
-# fn_args_layout = "vertical"
-
-# trailing_semicolon

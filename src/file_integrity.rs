@@ -1,6 +1,8 @@
 #[cxx_qt::bridge]
 mod qobject {
-    // Correctly set in unsafe extern "C++", but needed to dismiss error
+    // Already linked through #[cxx_qt::bridge], needed to dismiss error
+    use crate::file_integrity::qobject::FileIntegrityCxxQtThread;
+    // Already linked in unsafe extern "C++", needed to dismiss error
     use cxx_qt_lib::QString;
     use serde_json::Value;
     use sha2::{Digest, Sha512};
