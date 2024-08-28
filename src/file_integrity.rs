@@ -1,11 +1,13 @@
 #[cxx_qt::bridge]
 mod qobject {
-    //use cxx_qt_lib::QString;
-    use std::sync::Arc;
+    // Correctly set in unsafe extern "C++", but needed to dismiss error
+    use cxx_qt_lib::QString;
     use serde_json::Value;
     use sha2::{Digest, Sha512};
-    use std::{env, fs, io, path::Path, thread, time::Duration};
+    use std::{env, fs, io};
     use std::{env::consts::OS, process::{Command, Stdio}};
+    use std::{path::Path, time::Duration};
+    use std::{sync::Arc, thread};
     use tokio::{io::AsyncWriteExt, time::sleep};
 
     unsafe extern "C++" {
