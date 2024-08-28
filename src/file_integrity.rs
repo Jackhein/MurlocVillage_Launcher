@@ -9,6 +9,7 @@ mod qobject {
     use std::{env, fs, io};
     use std::{
         env::consts::OS,
+        io::Read,
         process::{Command, Stdio},
     };
     use std::{path::Path, time::Duration};
@@ -174,33 +175,50 @@ mod qobject {
         /// Start the game
         #[qinvokable]
         pub fn start_game(&self) -> QString {
-            if OS == "linux" || OS == "macos" {
-                match Command::new("wine")
-                    .arg("Wow.exe")
-                    .stdin(Stdio::null())
-                    .stdout(Stdio::null())
-                    .stderr(Stdio::null())
-                    .spawn()
-                {
-                    Ok(_) => QString::from("Game started"),
-                    Err(e) => QString::from(&format!("Unable to launch game: {}", e)),
+            let qt_thread = self.qt_thread();
+
+            thread::spawn(move || {
+                return if OS == "linux" || OS == "macos" {
+                    match qobject::FileIntegrity::run_game("wine", "Wow.exe", &qt_thread) {
+                        Ok(_) => QString::from("Game started"),
+                        Err(e) => QString::from(&format!("Unable to launch game: {}", e)),
+                    }
+                } else if OS == "windows" {
+                    match qobject::FileIntegrity::run_game("Wow.exe", "", &qt_thread) {
+                        Ok(_) => QString::from("Game started"),
+                        Err(e) => QString::from(&format!("Unable to launch game: {}", e)),
+                    }
+                } else {
+                    QString::from(&format!("Unsupported OS: {}.", OS))
+                };
+            });
+            QString::from("Game launching")
+        }
+
+        fn run_game(
+            cmd: &str,
+            args: &str,
+            qt_thread: &UniquePtr<FileIntegrityCxxQtThread>,
+        ) -> Result<(), String> {
+            let mut thread_game = Command::new(cmd)
+                .arg(args)
+                .stdin(Stdio::null())
+                .stdout(Stdio::null())
+                .stderr(Stdio::piped())
+                .spawn()
+                .map_err(|_| "GameFailure")?;
+            if let Some(mut stderr) = thread_game.stderr.take() {
+                let mut stderr_output = String::new();
+                stderr.read_to_string(&mut stderr_output).map_err(|_| "GameFailure")?;
+
+                if !stderr_output.is_empty() {
+                    qobject::FileIntegrity::display_message(
+                        qt_thread,
+                        &format!("Error from wine: {}", stderr_output),
+                    );
                 }
-            } else if OS == "windows" {
-                match Command::new("Wow.exe")
-                    .stdin(Stdio::null())
-                    .stdout(Stdio::null())
-                    .stderr(Stdio::null())
-                    .spawn()
-                {
-                    Ok(_) => crate::file_integrity::qobject::QString::from("Game started"),
-                    Err(e) => crate::file_integrity::qobject::QString::from(&format!(
-                        "Unable to launch game: {}",
-                        e
-                    )),
-                }
-            } else {
-                QString::from(&format!("Unsupported OS: {}.", OS))
             }
+            Ok(())
         }
 
         /// GUI information update
