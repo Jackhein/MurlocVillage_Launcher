@@ -21,6 +21,9 @@ Window {
         play: fileintegrity.play
         language: fileintegrity.language
         buttonColor: fileintegrity.buttonColor
+        font: fileintegrity.font
+        loadingIcon: fileintegrity.loadingIcon
+        loadingBar: fileintegrity.loadingBar
     }
 
     Column {
@@ -28,6 +31,18 @@ Window {
         anchors.verticalCenter: parent.verticalCenter
         /* space between widget */
         spacing: 10
+
+        Image {
+            source: fileintegrity.font
+        }
+
+        Image {
+            source: fileintegrity.loadingIcon
+        }
+
+        Image {
+            source: fileintegrity.loadingBar
+        }
 
         Button {
             text: fileintegrity.verify

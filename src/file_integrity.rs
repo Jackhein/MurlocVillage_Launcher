@@ -3,12 +3,6 @@ mod file_integrity {
     unsafe extern "C++" {
         include!("cxx-qt-lib/qstring.h");
         type QString = cxx_qt_lib::QString;
-        include!("cxx-qt-lib/qimage.h");
-        type QImage = cxx_qt_lib::QImage;
-        // include!("cxx-qt-lib/qpixmap.h");
-        // type QPixmap = cxx_qt_lib::QPixmap;
-        // include!("cxx-qt-lib/qsound.h");
-        // type QSound = cxx_qt_lib::QSound;
         include!("cxx-qt-lib/qcolor.h");
         type QColor = cxx_qt_lib::QColor;
     }
@@ -20,9 +14,9 @@ mod file_integrity {
         #[qproperty(QString, play)]
         #[qproperty(QString, verify)]
         #[qproperty(QString, language)]
-        // #[qproperty(QImage, font)]
-        // #[qproperty(QImage, loading_icon)]
-        // #[qproperty(QImage, loading_bar)]
+        #[qproperty(QString, font)]
+        #[qproperty(QString, loading_icon)]
+        #[qproperty(QString, loading_bar)]
         #[qproperty(QColor, button_color)]
         #[qproperty(QString, result)]
         type FileIntegrity = super::FileIntegrityRust;
@@ -49,7 +43,7 @@ use std::{
 };
 use std::{path::Path, time::Duration};
 use std::{sync::Arc, thread};
-use cxx_qt_lib::{QColor, QImage, QString};
+use cxx_qt_lib::{QColor, QString};
 use tokio::{io::AsyncWriteExt, time::sleep};
 
 /// Rust structure bridged to C++ code.
@@ -58,9 +52,10 @@ pub struct FileIntegrityRust {
     play: QString,
     verify: QString,
     language: QString,
-    // font: QImage,
-    // loading_icon: QImage,
-    // loading_bar: QImage,
+    font: QString,
+    loading_icon: QString,
+    loading_bar: QString,
+    sound_victory: QString,
     button_color: QColor,
     result: QString,
 }
@@ -75,9 +70,9 @@ impl Default for FileIntegrityRust {
             play: file_integrity::FileIntegrity::load_gui_button_text_play(),
             verify: file_integrity::FileIntegrity::load_gui_button_text_verify(),
             language: file_integrity::FileIntegrity::load_gui_button_text_language(),
-            // font: file_integrity::FileIntegrity::load_gui_font(),
-            // loading_icon: file_integrity::FileIntegrity::load_gui_loading_icon(),
-            // loading_bar: file_integrity::FileIntegrity::load_gui_loading_bar(),
+            font: file_integrity::FileIntegrity::load_gui_image_font(),
+            loading_icon: file_integrity::FileIntegrity::load_gui_image_loading_icon(),
+            loading_bar: file_integrity::FileIntegrity::load_gui_image_loading_bar(),
             button_color: file_integrity::FileIntegrity::load_gui_button_color(),
             result: QString::from(""),
         }
@@ -336,7 +331,20 @@ impl file_integrity::FileIntegrity {
         true
     }
 
-    /// Load the GUI text
+    /// Load the GUI data
+    // QImage not fully available
+    // fn load_gui_image(path: &str) -> QImage {
+    //     match fs::read(Path::new(&path)) {
+    //         Ok(f) => {
+    //             QImage::from_data(&f, None).expect("REASON")
+    //         },
+    //         Err(e) => {
+    //             eprintln!("Failed to load image: {}\n{}", path, e);
+    //             QImage::from_data(&[], None).expect("REASON")
+    //         }
+    //     }
+    // }
+
     fn load_gui_button_text_play() -> QString {
         QString::from("Play")
     }
@@ -357,17 +365,17 @@ impl file_integrity::FileIntegrity {
         QColor::from_rgba(155, 0, 0, 255)
     }
 
-    // fn load_gui_font() -> QImage {
-    //     QImage::from("test")
-    // }
-    //
-    // fn load_gui_loading_icon() -> QImage {
-    //     QImage::from("test")
-    // }
-    //
-    //
-    // fn load_gui_loading_bar() -> QImage {
-    //     QImage::from("test")
-    // }
+    fn load_gui_image_font() -> QString {
+        QString::from("../resources/mv2.jpg")
+    }
+
+    fn load_gui_image_loading_icon() -> QString {
+        QString::from("../sources/murloc_swim.gif")
+    }
+
+
+    fn load_gui_image_loading_bar() -> QString {
+        QString::from("../resources/wow.ico")
+    }
     // /// Download the add-on
 }
