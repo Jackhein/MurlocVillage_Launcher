@@ -55,7 +55,6 @@ pub struct FileIntegrityRust {
     font: QString,
     loading_icon: QString,
     loading_bar: QString,
-    sound_victory: QString,
     button_color: QColor,
     result: QString,
 }
