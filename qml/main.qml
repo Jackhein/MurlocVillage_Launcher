@@ -20,6 +20,7 @@ Window {
         verify: fileintegrity.verify
         play: fileintegrity.play
         language: fileintegrity.language
+        buttonColor: fileintegrity.buttonColor
     }
 
     Column {
@@ -31,15 +32,24 @@ Window {
         Button {
             text: fileintegrity.verify
             onClicked: fileintegrity.checkFile()
+            background: Rectangle {
+                color: fileintegrity.buttonColor
+            }
         }
 
         Button {
             text: fileintegrity.play
             onClicked: fileintegrity.result=fileintegrity.startGame()
+            background: Rectangle {
+                color: fileintegrity.buttonColor
+            }
         }
 
         Button {
             text: fileintegrity.language
+            background: Rectangle {
+                color: fileintegrity.buttonColor
+            }
         }
 
         TextArea {

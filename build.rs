@@ -1,18 +1,17 @@
-use cxx_qt_build::CxxQtBuilder;
+use cxx_qt_build::{CxxQtBuilder, QmlModule};
 
+/// https://doc.qt.io/qt-6/resources.html
 fn main() {
     CxxQtBuilder::new()
-        // Link Qt's Network library
-        // - Qt Core is always linked
-        // - Qt Gui is linked by enabling the qt_gui Cargo feature (default).
-        // - Qt Qml is linked by enabling the qt_qml Cargo feature (default).
-        // - Qt Qml requires linking Qt Network on macOS
         .qt_module("Network")
-        // Generate C++ from the `#[cxx_qt::bridge]` module
-        .file("src/file_integrity.rs")
-        // Generate C++ code from the .qrc file with the rcc tool
-        // https://doc.qt.io/qt-6/resources.html
-        .qrc("qml/qml.qrc")
-        .setup_linker()
+        .qml_module(QmlModule {
+            uri: "WoW_Private_Server_Launcher",
+            version_major: 1,
+            version_minor: 0,
+            rust_files: &["src/file_integrity.rs"],
+            qml_files: &["qml/main.qml"],
+            qrc_files: &["qml/qml.qrc"],
+            ..Default::default()
+        })
         .build();
 }
