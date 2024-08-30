@@ -9,8 +9,8 @@ fn main() {
             version_major: 1,
             version_minor: 0,
             rust_files: &["src/file_integrity.rs"],
-            qml_files: &["qml/main.qml"],
-            qrc_files: &["qml/qml.qrc"],
+            qml_files: &["qml/qml.qrc"],
+            qrc_files: &[],
             ..Default::default()
         })
         .build();

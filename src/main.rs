@@ -1,6 +1,6 @@
 mod file_integrity;
 
-use cxx_qt_lib::{QGuiApplication, QQmlApplicationEngine, QUrl};
+use cxx_qt_lib::{QGuiApplication, QQmlApplicationEngine, QString, QUrl};
 
 fn main() {
     // Create the application and engine
@@ -9,7 +9,7 @@ fn main() {
 
     // Load the QML path into the engine
     if let Some(engine) = engine.as_mut() {
-        engine.load(&QUrl::from("qrc:/main.qml"));
+        engine.load(&QUrl::from_local_file(&QString::from("qml/main.qml")));
     } else {
         eprintln!("Failed to load QQmlApplicationEngine.");
     }

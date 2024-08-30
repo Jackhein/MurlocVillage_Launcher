@@ -67,6 +67,7 @@ pub struct FileIntegrityRust {
 
 /// Default data for structure.
 /// Can use #[derive(Default)] instead ahead of struct declaration.
+/// Check for future use cxx_qt::{Constructor, Initialize}.
 impl Default for FileIntegrityRust {
     fn default() -> Self {
         Self {
